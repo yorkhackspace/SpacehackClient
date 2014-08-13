@@ -39,12 +39,14 @@ and an array of the two input pins
                     continue
                 level_b = 0
                 # De-bounce
-                for count in range(0,8):
+                debounce_limit = 10 
+                for count in range(0,debounce_limit):
                     level_b += self.gpio.input(self.pin_b)
+                    #sleep(0.000001)
                     #print(str(level_b))
                 if level_b > 5:
                     dir = "cw"
                 else:
                     dir = "ccw"
                 self.queue.put(dir)
-            
+                sleep(0.005)            
