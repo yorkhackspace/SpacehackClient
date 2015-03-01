@@ -3,8 +3,8 @@ Description=SpaceHack Console game client
 After=syslog.target
 
 [Service]
-ExecStart=/usr/bin/python /home/root/ConsoleGame/client/game.py
-WorkingDirectory=/home/root/ConsoleGame/client
+ExecStart=/usr/bin/python /opt/SpacehackClient/game.py
+WorkingDirectory=/opt/SpacehackClient
 Type=simple
 Restart=always
 
