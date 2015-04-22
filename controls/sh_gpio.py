@@ -66,8 +66,11 @@ def input(pin_id):
 	if pin_id[0] == 'P':
 		return GPIO.input(pin_id)
 	elif pin_id[0] == 'E':
-		exp_id = pin_id[1]	
-		return get_exp(exp_id).getPinData(pin_id[3:5])==HIGH
+		exp_id = pin_id[1]
+		if (get_exp(exp_id).getPinData(pin_id[3:5])==HIGH):
+			return 1
+		else:
+			return 0
 	else:
 		pin_id_error()
 	return 0
