@@ -499,7 +499,7 @@ class SHControlSwitchbank(SHControl):
                 elif state == [0, 0, 0, 0]:
                     value = 0
                 else:
-                    value = ctrlvalue
+                    value = 2
         return value, state
 
     def processValueAssignment(self, roundconfig, value, ctrlid, override=False):
