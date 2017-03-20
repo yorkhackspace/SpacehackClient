@@ -1,0 +1,3 @@
+[submodule "Adafruit_Nokia_LCD"]
+	path = Adafruit_Nokia_LCD
+	url = https://github.com/adafruit/Adafruit_Nokia_LCD.git
