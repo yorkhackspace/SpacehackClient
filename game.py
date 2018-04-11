@@ -126,10 +126,19 @@ for controlid in [x['id'] for x in config['interface']['controls']]:
     client.subscribe(subsbase + str(controlid) + '/name')
     client.subscribe(subsbase + str(controlid) + '/enabled')
 
+lastBeat = time.time()
+
+def heartbeat():
+    global lastBeat
+    if lastBeat +1.0 < time.time():
+        lastBeat = time.time()
+        client.publish("clients/" + ipaddress + "/heartbeat", "boop")
+
 #Main loop
 while(client.loop(0) == 0):
     control_manager.pollControls(config, roundconfig, controlids, client, ipaddress)
     myLcdManager.displayTimer(timeoutstarted, resetBlocks, roundconfig.get('timeout', 0))
+    heartbeat()
     if resetBlocks:
         resetBlocks = False
 
