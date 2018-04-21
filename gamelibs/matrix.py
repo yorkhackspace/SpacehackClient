@@ -13,10 +13,23 @@ class Matrix(object):
 
     def clear(self):
         if self.port:
-            self.port.write('1000 0 00 00 00 00 00 00 00 00')
+            self.port.write('0\n')
 
     def loadAnimations(self):
         pass
 
     def animate(self, name):
         pass
+
+    def test(self, name):
+        if self.port:
+            self.port.write('500 08 55aa55aa55aa55aa\n')
+            self.port.write('500 07 aa55aa55aa55aa55\n')
+            self.port.write('500 06 55aa55aa55aa55aa\n')
+            self.port.write('500 05 aa55aa55aa55aa55\n')
+            self.port.write('500 04 55aa55aa55aa55aa\n')
+            self.port.write('500 03 aa55aa55aa55aa55\n')
+            self.port.write('500 02 55aa55aa55aa55aa\n')
+            self.port.write('500 01 aa55aa55aa55aa55\n')
+            self.port.write('500 00 0000000000000000\n')
+            self.port.write('0\n')

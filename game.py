@@ -21,6 +21,7 @@ import os
 from gamelibs import config_manager
 from gamelibs import lcd_manager
 from controls import control_manager
+from gamelibs import matrix
 
 #Vars
 roundconfig = {}
@@ -38,6 +39,8 @@ config, controlids, controldefs, sortedlist = config_manager.loadConfig(configFi
 
 #initialise all of the LCDs and return a list of LCD objects
 myLcdManager = lcd_manager.LcdManager(sortedlist, config)
+ledMatrix = matrix.Matrix(config)
+ledMatrix.clear()
 
 #initialise all controls
 control_manager.initialiseControls(config, sortedlist, myLcdManager)
@@ -50,6 +53,7 @@ with open('/tmp/spacehack_version', 'r') as f:
 bootinfo = "SpaceHack Client Commit %s %s %s" % (chash, cdate, ctime)
 
 myLcdManager.display(str(bootinfo), 20, "0")
+ledMatrix.test()
 
 #MQTT client
 client = mosquitto.Mosquitto("Game-" + ipaddress) #client ID
