@@ -21,7 +21,7 @@ class Matrix(object):
     def animate(self, name):
         pass
 
-    def test(self, name):
+    def test(self):
         if self.port:
             self.port.write('500 08 55aa55aa55aa55aa\n')
             self.port.write('500 07 aa55aa55aa55aa55\n')
