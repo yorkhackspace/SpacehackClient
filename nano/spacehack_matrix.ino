@@ -39,7 +39,7 @@ void receiveFrameData() {
     x = Serial.parseInt();
     frame_bright[f] = constrain(x, 0, 15);
 
-    for(int r=0; r<8; ++r)
+    for(int r=7; r>=0; --r)
       frames[f][r] = readHexByte();
 
     while(Serial.read() != '\n');
@@ -57,7 +57,7 @@ void setFrame(int f) {
   lc.setIntensity(0,frame_bright[f]);
   
   for(int r=0; r<8; ++r)
-    lc.setRow(0, r, frames[f][r]);
+    lc.setColumn(0, r, frames[f][r]);
 }
 
 void setup() {
