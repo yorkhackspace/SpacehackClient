@@ -42,6 +42,15 @@ myLcdManager = lcd_manager.LcdManager(sortedlist, config)
 #initialise all controls
 control_manager.initialiseControls(config, sortedlist, myLcdManager)
 
+os.system("git log -1 --pretty='%h %ci' > /tmp/spacehack_version")
+with open('/tmp/spacehack_version', 'r') as f:
+    logline = f.readline()
+    chash, cdate, ctime, czone = logline.split(' ')
+
+bootinfo = "SpaceHack Client Commit %s %s %s" % (chash, cdate, ctime)
+
+myLcdManager.display(str(bootinfo), 20, "0")
+
 #MQTT client
 client = mosquitto.Mosquitto("Game-" + ipaddress) #client ID
 print config['local']
@@ -141,5 +150,3 @@ while(client.loop(0) == 0):
     heartbeat()
     if resetBlocks:
         resetBlocks = False
-
-
