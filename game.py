@@ -55,6 +55,8 @@ bootinfo = "SpaceHack Client Commit %s %s %s" % (chash, cdate, ctime)
 
 myLcdManager.display(str(bootinfo), 20, "0")
 
+time.sleep(2)
+
 #MQTT client
 client = mosquitto.Mosquitto("Game-" + ipaddress) #client ID
 print config['local']
