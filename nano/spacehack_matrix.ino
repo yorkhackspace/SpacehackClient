@@ -45,7 +45,7 @@ void receiveFrameData() {
     while(Serial.read() != '\n');
   }
 
-  while(Serial.available()) Serial.read();
+  while(Serial.read() != '\n');
 
   n_frames = f;
   Serial.print("Received ");
