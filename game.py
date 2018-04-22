@@ -41,6 +41,7 @@ config, controlids, controldefs, sortedlist = config_manager.loadConfig(configFi
 myLcdManager = lcd_manager.LcdManager(sortedlist, config)
 ledMatrix = matrix.Matrix(config)
 ledMatrix.clear()
+ledMatrix.test()
 
 #initialise all controls
 control_manager.initialiseControls(config, sortedlist, myLcdManager)
@@ -53,7 +54,6 @@ with open('/tmp/spacehack_version', 'r') as f:
 bootinfo = "SpaceHack Client Commit %s %s %s" % (chash, cdate, ctime)
 
 myLcdManager.display(str(bootinfo), 20, "0")
-ledMatrix.test()
 
 #MQTT client
 client = mosquitto.Mosquitto("Game-" + ipaddress) #client ID
@@ -134,6 +134,8 @@ client.subscribe(subsbase + "configure")
 client.subscribe(subsbase + "instructions")
 client.subscribe(subsbase + "timeout")
 client.subscribe("server/ready")
+
+ledMatrix.animate('dna')
 
 for controlid in [x['id'] for x in config['interface']['controls']]:
     client.subscribe(subsbase + str(controlid) + '/name')
