@@ -3,12 +3,14 @@
 import os
 import serial
 import string
+import time
 
 class Matrix(object):
     def __init__(self, config):
         buses = config['local']['buses']
         if 'matrix' in buses:
-            self.port = serial.Serial(buses['matrix']['port'])
+            self.port = serial.Serial(buses['matrix']['port'],baudrate=buses['matrix']['baud'])
+            time.sleep(0.5)
         else:
             self.port = False
         self.loadAnimations()
@@ -16,6 +18,7 @@ class Matrix(object):
     def clear(self):
         if self.port:
             self.port.write('0\n')
+            time.sleep(0.1)
 
     def loadAnimations(self):
         self.animations = {}
@@ -24,7 +27,7 @@ class Matrix(object):
             if filename.endswith(".txt"):
                 name = filename.rsplit('.',1)[0]
                 print("Loading animation " + name)
-                animation = ''
+                animation = []
                 with open('animations/' + filename, 'r') as f:
                     frame = ''
                     for line in f:
@@ -41,16 +44,17 @@ class Matrix(object):
                             else:
                                 frame += line + ' '
                         else:
-                            animation += frame + '\n'
+                            animation.append(frame)
                             frame = ''
                     if frame:
-                        animation += frame + '\n'
+                        animation.append(frame)
+                    animation += '0'
                 self.animations[name] = animation
 
     def animate(self, name):
         if self.port and name in self.animations:
-            self.port.write(self.animations[name])
-            self.port.write('0\n')
+            for frame in self.animations[name]:
+                self.port.write(frame + '\n')
 
     def test(self):
         if self.port:

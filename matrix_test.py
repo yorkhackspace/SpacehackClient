@@ -1,7 +1,7 @@
 # Basic matrix test util
 
 config = {
-    'local': { 'buses': { 'matrix': { 'port': '/dev/ttyUSB0' } } }
+    'local': { 'buses': { 'matrix': { 'port': '/dev/ttyUSB0', 'baud': 9600 } } }
 }
 
 from gamelibs import matrix
@@ -12,8 +12,6 @@ ledMatrix = matrix.Matrix(config)
 ledMatrix.clear()
 
 if len(sys.argv) > 1:
-    for animation in sys.argv[1:]:
-        ledMatrix.animate(animation)
-        time.sleep(3)
+    ledMatrix.animate(sys.argv[1])
 else:
     ledMatrix.test()
