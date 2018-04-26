@@ -12,6 +12,12 @@ ledMatrix = matrix.Matrix(config)
 ledMatrix.clear()
 
 if len(sys.argv) > 1:
-    ledMatrix.animate(sys.argv[1])
+    wait=False
+    for animation in sys.argv[1:]:
+        if wait:
+            time.sleep(5)
+	print("Testing '%s'" % animation)
+        ledMatrix.animate(animation)
+        wait=True
 else:
     ledMatrix.test()
