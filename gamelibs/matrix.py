@@ -58,13 +58,10 @@ class Matrix(object):
 
     def test(self):
         if self.port:
-            self.port.write('500 08 55aa55aa55aa55aa\n')
-            self.port.write('500 07 aa55aa55aa55aa55\n')
-            self.port.write('500 06 55aa55aa55aa55aa\n')
-            self.port.write('500 05 aa55aa55aa55aa55\n')
-            self.port.write('500 04 55aa55aa55aa55aa\n')
-            self.port.write('500 03 aa55aa55aa55aa55\n')
-            self.port.write('500 02 55aa55aa55aa55aa\n')
-            self.port.write('500 01 aa55aa55aa55aa55\n')
+            for bright in reversed(range(0,16)):
+                if bright % 2:
+                    self.port.write('250 %d 55aa55aa55aa55aa\n' % bright)
+                else:
+                    self.port.write('250 %d aa55aa55aa55aa55\n' % bright)
             self.port.write('500 00 0000000000000000\n')
             self.port.write('0\n')
